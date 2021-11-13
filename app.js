@@ -51,6 +51,7 @@ function game() {
                 :(computerPoint > userPoint) ? "You lost the game" 
                 :"Tie Game";
 
+    alert(`User: ${userPoint} \n Com: ${computerPoint} \n ${winner}`);
     console.log(`%cYour Total Points: ${userPoint}`, "font-size: 15px;");
     console.log(`%cCom's Total Points: ${computerPoint}`, "font-size: 15px;");
     console.log(`%c${winner}`, "font-size: 20px;");
