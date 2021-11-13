@@ -30,10 +30,9 @@ function game() {
     let userPoint = 0;
     let computerPoint = 0;
 
-    for (let i = 0; i < 3; i++) {
-        let playerChoice = prompt("Rock, Paper or Scissors:");
+    for (let i = 0; i < 5; i++) {
+        let playerChoice = prompt(`Round ${i+1} of 5. \nRock, Paper or Scissors:`);
         let roundWinner = chooseWinner(playerChoice, computerPlay());
-        alert(roundWinner);
         console.log(roundWinner);
         decision = roundWinner.split(",")[0];
         console.log("      ");
@@ -43,6 +42,8 @@ function game() {
         else if (decision ===  "You Lose") {
             computerPoint++;
         }
+
+        alert(`${roundWinner} \n User: ${userPoint} \n Com: ${computerPoint}`);
     }
 
 
