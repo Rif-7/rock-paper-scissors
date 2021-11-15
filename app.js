@@ -57,25 +57,64 @@ function game() {
     console.log(`%c${winner}`, "font-size: 20px;");
 }
 
+let round = 1;
+let userScore = 0;
+let comScore = 0;
+
 
 let buttons = Array.from(document.querySelectorAll(".choice"));
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
 
-        const mainDiv = document.querySelector(".content"); 
+        round++;
+        document.querySelector(".final").textContent = "";
+        const mainDiv = document.querySelector(".info"); 
+        const scoreInfo = document.querySelector(".score-info");
+        const roundInfo = document.querySelector(".round-info");
+
         let userChoice = button.getAttribute("data-option");
         let comChoice = computerPlay();
-        let winner = chooseWinner(userChoice, comChoice);
+        let winningMsg = chooseWinner(userChoice, comChoice);
+        let winner = winningMsg.split(",")[0];
 
-        const finalChoices = document.createElement("p");
+        
+
+        if (winner === "You Won") {
+            userScore++;
+        }
+        else if (winner ===  "You Lose") {
+            comScore++;
+        }
+
+        if (round >= 6) {
+            let gameWinner = (userScore > comScore) ? "You Won The Game"
+                            :(comScore > userScore) ? "You Lost The Game"
+                            : "Tie Game";
+            const announcement = document.querySelector(".final");
+            announcement.textContent = gameWinner;
+            scoreInfo.textContent = `Your Score: ${userScore} | Com Score: ${comScore}`;
+            const finalResult = document.createElement("p");
+            finalResult.textContent += winningMsg;
+            mainDiv.textContent = '';
+            mainDiv.appendChild(finalResult);
+            round = 1;
+            userScore = 0;
+            comScore = 0;
+            return;
+
+        }
+
+        scoreInfo.textContent = `Your Score: ${userScore} | Com Score: ${comScore}`;
+        roundInfo.textContent = `Round: ${round}`;
+
         const finalResult = document.createElement("p");
-
-        finalChoices.textContent = `Your Choice: ${userChoice} | Computer Choice: ${comChoice} \n`;
-        finalResult.textContent += winner;
+        finalResult.textContent += winningMsg;
 
         mainDiv.textContent = '';
-        mainDiv.appendChild(finalChoices);
         mainDiv.appendChild(finalResult);
+        
+        
+
         return;
     });
 });
