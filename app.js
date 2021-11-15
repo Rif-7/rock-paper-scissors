@@ -56,3 +56,26 @@ function game() {
     console.log(`%cCom's Total Points: ${computerPoint}`, "font-size: 15px;");
     console.log(`%c${winner}`, "font-size: 20px;");
 }
+
+
+let buttons = Array.from(document.querySelectorAll(".choice"));
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+
+        const mainDiv = document.querySelector(".content"); 
+        let userChoice = button.getAttribute("data-option");
+        let comChoice = computerPlay();
+        let winner = chooseWinner(userChoice, comChoice);
+
+        const finalChoices = document.createElement("p");
+        const finalResult = document.createElement("p");
+
+        finalChoices.textContent = `Your Choice: ${userChoice} | Computer Choice: ${comChoice} \n`;
+        finalResult.textContent += winner;
+
+        mainDiv.textContent = '';
+        mainDiv.appendChild(finalChoices);
+        mainDiv.appendChild(finalResult);
+        return;
+    });
+});
